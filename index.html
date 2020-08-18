@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <title>Date Me</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card py-5 px-5">
+      <h1>Random Date</h1>
+    <button class="btn btn-primary" onclick="buttonPressed()">Get a date!</button>
+    <img src="" id="userPic" width="350 px">
+    <p id="name">Name</p>
+    <p id="email">email</p>
+    <p id="cell">cell</p>
+    <p id="address">address</p>
+    <p id="dob">dob</p>
+    </div>
+    </div>
+</div>
+    <!-- Optional JavaScript -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script type="text/javascript">
+      function buttonPressed(){
+     // Using fetch to download the Data from API
+        fetch('https://www.randomuser.me/api')
+        .then(response => response.json())
+        .then(data => {
+var results = data["results"];
+      var firstResult = results[0];
+      var nameObject = firstResult["name"]
+      var firstName = nameObject["first"]
+      var lastName = nameObject["last"]
+      var title = nameObject["title"]
+      document.getElementById("name").innerHTML = title + " "+firstName+" "+lastName;
+      var email = firstResult ["email"]
+      document.getElementById ("email").innerHTML = email;
+      var cell = firstResult ["cell"]
+      document.getElementById ("cell").innerHTML = cell;
+      var dobObject = firstResult ["dob"]
+      var dob= dobObject["date"]
+      document.getElementById("dob").innerHTML = dob;
+      var addressObject = firstResult ["location"]
+      var streetObject = addressObject ["street"]
+      var streetName = streetObject ["name"]
+      var streetNo = streetObject["number"]
+      var postcode = addressObject ["postcode"]
+      var city = addressObject ["city"]
+      var state = addressObject ["state"]
+      var country = addressObject ["country"]
+      document.getElementById("address").innerHTML = streetNo + " " +streetName+ " " + state +" "+postcode +" "+country;
+      var pictureUrl = firstResult["picture"]["large"]
+      document.getElementById("userPic").src = pictureUrl;
+
+      console.log(firstName)
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+        .catch(function(err){
+          console.log(err);
+        })
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  </body>
+</html>
